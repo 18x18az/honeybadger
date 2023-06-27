@@ -26,4 +26,4 @@ jobs:
         uses: actions/upload-artifact@v1
         with:
           name: HoneyBadgerInstaller.exe
-          path: 'scripts\Output\HoneyBadgerSetup.exe'
+          path: 'scripts\Output\HoneyBadgerInstaller.exe'
