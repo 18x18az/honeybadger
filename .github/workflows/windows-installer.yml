@@ -10,6 +10,15 @@ jobs:
     runs-on: windows-latest
     steps:
       - uses: actions/checkout@v3
+        with:
+          fetch-depth: '0'
+      - name: Get next version
+        id: taggerDryRun
+        uses: anothrNick/github-tag-action@1.36.0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          WITH_V: true
+          DRY_RUN: true
       - name: Set up Python 3.9
         uses: actions/setup-python@v4
         with:
@@ -27,3 +36,9 @@ jobs:
         with:
           name: HoneyBadgerInstaller.exe
           path: 'scripts\Output\HoneyBadgerInstaller.exe'
+      - name: Tag release
+        id: taggerFinal
+        uses: anothrNick/github-tag-action@1.36.0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          WITH_V: true
