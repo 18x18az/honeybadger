@@ -38,19 +38,45 @@ jobs:
       - name: Build exe
         run: |
           scripts\buildWindows.bat ${{ needs.getVersion.outputs.version }}
-      - name: Upload Artifact
-        uses: actions/upload-artifact@v1
+      - name: Archive Installer
+        uses: actions/upload-artifact@v2
         with:
-          name: HoneyBadgerInstaller.exe
-          path: 'scripts\Output\HoneyBadger-${{ needs.getVersion.outputs.version }}.exe'
+          name: honey-badger-${{ needs.getVersion.outputs.version }}.exe
+          path: 'scripts\Output\honey-badger-${{ needs.getVersion.outputs.version }}.exe'
+
 
   release:
     runs-on: ubuntu-latest
-    needs: build
+    needs: [build, getVersion]
     steps:
       - uses: actions/checkout@v3
         with:
           fetch-depth: '0'
+      - name: Download Installer
+        uses: actions/download-artifact@v2
+        with:
+          name: honey-badger-${{ needs.getVersion.outputs.version }}.exe
+      - name: Create Release
+        id: create-release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: v${{ needs.getVersion.outputs.version }}
+          release_name: Release v${{ needs.getVersion.outputs.version }}
+          draft: false
+          prerelease: false
+  
+      - name: Upload Installer
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create-release.outputs.upload_url }}
+          asset_path: ./honey-badger-${{ needs.getVersion.outputs.version }}.exe
+          asset_name: honey-badger-${{ needs.getVersion.outputs.version }}.exe
+          asset_content_type: application/octet-stream
+  
       - name: Tag version
         id: taggerDryRun
         uses: anothrNick/github-tag-action@1.36.0
