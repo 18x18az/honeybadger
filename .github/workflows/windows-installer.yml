@@ -1,17 +1,34 @@
-name: Windows Release
+name: Release Installer
 
 on:
   push:
     branches: [main]
 
 jobs:
-  build:
-
-    runs-on: windows-latest
+  getVersion:
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
         with:
           fetch-depth: '0'
+      - name: Get next version
+        id: taggerDryRun
+        uses: anothrNick/github-tag-action@1.36.0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          WITH_V: true
+          DRY_RUN: true 
+    outputs:
+      version: ${{ steps.taggerDryRun.outputs.new_tag }}
+
+  build:
+    runs-on: windows-latest
+    needs: getVersion
+    steps:
+      - name: echo new tag
+        run: |
+          echo "The next tag version will be: ${{ needs.getVersion.outputs.version }}"
+      - uses: actions/checkout@v3
       - name: Get next version
         id: taggerDryRun
         uses: anothrNick/github-tag-action@1.36.0
@@ -36,8 +53,16 @@ jobs:
         with:
           name: HoneyBadgerInstaller.exe
           path: 'scripts\Output\HoneyBadgerInstaller.exe'
-      - name: Tag release
-        id: taggerFinal
+
+  release:
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: '0'
+      - name: Tag version
+        id: taggerDryRun
         uses: anothrNick/github-tag-action@1.36.0
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
