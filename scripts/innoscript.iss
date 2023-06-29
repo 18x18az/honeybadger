@@ -4,14 +4,14 @@
 #define MyAppName "Honey Badger"
 #define MyAppPublisher "18x18AZ"
 #define MyAppURL "https://www.18x18az.org/"
-#define MyAppExeName "honey-badger.exe"
+#define MyAppExeName "main.exe"
 
 [Setup]
 ; NOTE: The value of AppId uniquely identifies this application. Do not use the same AppId value in installers for other applications.
 ; (To generate a new GUID, click Tools | Generate GUID inside the IDE.)
 AppId={{5F6657D4-E90A-4BE2-A9D6-21A37ABA22AD}
 AppName={#MyAppName}
-AppVersion={param:version}
+AppVersion={#MyAppVersion}
 ;AppVerName={#MyAppName} {#MyAppVersion}
 AppPublisher={#MyAppPublisher}
 AppPublisherURL={#MyAppURL}
@@ -22,7 +22,7 @@ DefaultGroupName=18x18AZ
 ; Remove the following line to run in administrative install mode (install for all users.)
 PrivilegesRequired=lowest
 PrivilegesRequiredOverridesAllowed=dialog
-OutputBaseFilename=HoneyBadger-{param:version}
+OutputBaseFilename=honey-badger-{#MyAppVersion}
 Compression=lzma
 SolidCompression=yes
 WizardStyle=modern
