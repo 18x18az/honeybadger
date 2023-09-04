@@ -1,7 +1,6 @@
 
-from reader.scoring.qualSelector import selectQual
-from reader.scoring.scoreInput import inputValues
+from reader.checkIn.checkin import checkIn
 
-selectQual(33)
-inputValues(['1', '1', '2', '4', 'c', 'n', '.', '', '', '', '', '.', '', '1', '0', 
-             '4', '12', 'j', 'n', '', '', '', '', '', '', '.'])
+TEAM_LIST = [str(i) for i in range(1, 25)]
+
+checkIn(TEAM_LIST, '5', False)
