@@ -5,4 +5,4 @@ from reader.qualSelector import getQualSelector, selectQual
 
 #createNew()
 #saveTournament()
-selectQual(5)
+selectQual(33)

@@ -1,12 +1,21 @@
 from interaction.screen import ScreenItem
 from reader.base import getRegion
 from reader.clicker import clickAt
+import math
 
-TOP_LEFT = [46, 79]
-BOTTOM_RIGHT = [170, 748]
+START_Y = 79
+END_Y = 720
+
+TOP_LEFT = [46, START_Y]
+BOTTOM_RIGHT = [170, END_Y]
 
 EXPAND_X = 20
 SELECT_X = 90
+
+SCROLL_X = 160
+
+SCROLL_TOP = 90
+SCROLL_BOTTOM = 720
 
 mostRecent = None
 
@@ -79,6 +88,19 @@ def selectQual(qual: int):
     differenceY = lastDataPoint[1].y - firstDataPoint[1].y
     scale = differenceY / difference
     desiredQualY = firstDataPoint[1].y + (scale * (qual - firstDataPoint[0]))
+
+    if desiredQualY < START_Y:
+        numClicks = math.ceil((START_Y - desiredQualY) / scale)
+        print(f"Offsetting {numClicks} clicks up")
+        for i in range(numClicks):
+            clickAt(SCROLL_X, SCROLL_TOP)
+        desiredQualY += numClicks * scale
+    elif desiredQualY > END_Y:
+        numClicks = math.ceil((desiredQualY - END_Y) / scale)
+        print(f"Offsetting {numClicks} clicks down")
+        for i in range(numClicks):
+            clickAt(SCROLL_X, SCROLL_BOTTOM)
+        desiredQualY -= numClicks * scale
     print(f"Selecting qual {qual}")
     clickAt(SELECT_X, desiredQualY)
             
