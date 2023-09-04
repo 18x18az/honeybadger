@@ -1,8 +1,7 @@
-from interactions.setup import createNew, saveTournament
-from interaction.screen import getScreenComponents
-from interaction.clicker import enterText
-from reader.qualSelector import getQualSelector, selectQual
 
-#createNew()
-#saveTournament()
+from reader.scoring.qualSelector import selectQual
+from reader.scoring.scoreInput import inputValues
+
 selectQual(33)
+inputValues(['1', '1', '2', '4', 'c', 'n', '.', '', '', '', '', '.', '', '1', '0', 
+             '4', '12', 'j', 'n', '', '', '', '', '', '', '.'])

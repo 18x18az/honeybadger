@@ -1,6 +1,12 @@
 import pyautogui
 from interaction.representation import getPosition
 
+def hitTab():
+    pyautogui.press('tab')
+
+def hitSpace():
+    pyautogui.press('space')
+
 def enterText(text: str):
     pyautogui.write(text)
 

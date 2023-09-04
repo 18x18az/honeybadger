@@ -1,6 +1,5 @@
-from interaction.screen import ScreenItem
-from reader.base import getRegion
-from reader.clicker import clickAt
+from reader.base.reader import getRegion
+from reader.base.clicker import clickAt
 import math
 
 START_Y = 79
