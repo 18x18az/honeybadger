@@ -1,9 +1,8 @@
 from interactions.setup import createNew, saveTournament
 from interaction.screen import getScreenComponents
 from interaction.clicker import enterText
+from reader.qualSelector import getQualSelector, selectQual
 
 #createNew()
 #saveTournament()
-components = getScreenComponents()
-for component in components:
-    print(component.text)
+selectQual(5)

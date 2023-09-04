@@ -1,0 +1,1 @@
+DISPLAY=:0 watch xdotool getmouselocation
