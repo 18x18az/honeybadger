@@ -27,11 +27,25 @@ def getRegion(box: list[list[int, int], list[int, int]] = [[0, 0],[screenWidth, 
     n_boxes = len(teststr['level'])
 
     lines = {}
+
+    previousBlocksLength = 0
+    currentBlockLength = 0
+    currentBlock = 0
  
     # Extract and draw rectangles for all bounding boxes
     for i in range(n_boxes):
         # Add to existing line or create a new line
-        lineNum = teststr['line_num'][i]
+
+        block = teststr['par_num'][i]
+        if block != currentBlock:
+            currentBlock = block
+            previousBlocksLength += currentBlockLength
+            currentBlockLength = 0
+
+        offset = teststr['line_num'][i]
+        currentBlockLength = offset
+
+        lineNum = offset + previousBlocksLength
         text = teststr['text'][i].lower().strip()
 
         text = text.strip()
