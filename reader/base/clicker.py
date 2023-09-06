@@ -7,6 +7,9 @@ def hitTab():
 def hitSpace():
     pyautogui.press('space')
 
+def hitEnter():
+    pyautogui.press('enter')
+
 def enterText(text: str):
     pyautogui.write(text)
 

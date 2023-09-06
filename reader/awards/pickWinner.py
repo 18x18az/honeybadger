@@ -1,5 +1,6 @@
 from interaction.clicker import clickAt
 from reader.awards.selectAward import selectAward
+from reader.base.clicker import hitEnter
 from reader.base.reader import getRegion
 
 DROPDOWN_X = 731
@@ -33,3 +34,10 @@ def selectAwardWinner(award: str, winner: str, teams: list[str]):
     clickAt(DROPDOWN_X, winnerPosition)
 
     clickAt(SAVE_X, SAVE_Y)
+
+AUTOFILL_X = 548
+AUTOFILL_Y = 414
+
+def autoFillWinners():
+    clickAt(AUTOFILL_X, AUTOFILL_Y)
+    hitEnter()
