@@ -1,5 +1,6 @@
 from interaction.clicker import clickAt, enterText
 from reader.base.clicker import hitTab
+from reader.base.tabSelect import skillsTab
 
 
 TEAM_INPUT_X = 925
@@ -20,6 +21,7 @@ def enterTeamNumber(teamNumber: str):
     enterText(teamNumber)
 
 def enterSkillsScore(team: str, score: list[str], isProg: bool):
+    skillsTab()
     enterTeamNumber(team)
 
     clickAt(INPUT_X, INPUT_Y)

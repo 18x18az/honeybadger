@@ -1,5 +1,6 @@
 from interaction.clicker import clickAt
 from reader.base.reader import getRegion
+from reader.base.tabSelect import teamTab
 from reader.checkIn.teamSelector import selectTeam
 
 checkBoxTopLeft = [1126, 400]
@@ -9,6 +10,7 @@ saveX = 1095
 saveY = 446
 
 def checkIn(teams: list[str], team: str, present: bool):
+    teamTab()
     selectTeam(teams, team)
     current = getRegion([checkBoxTopLeft, checkBoxBottomRight])
     
