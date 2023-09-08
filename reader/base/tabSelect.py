@@ -40,3 +40,7 @@ def awardsTab():
     if currentTab != 'awards':
         clickAt(AWARDS_X, TAB_Y)
         currentTab = 'awards'
+
+def resetTab():
+    global currentTab
+    currentTab = None

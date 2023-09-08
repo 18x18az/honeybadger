@@ -5,6 +5,7 @@ from PIL import ImageGrab
 import cv2
 import numpy as nm
 from pytesseract import Output
+import time
 
 screenWidth, screenHeight = pyautogui.size()
 
@@ -78,3 +79,22 @@ def getRegion(box: list[list[int, int], list[int, int]] = [[0, 0],[screenWidth, 
         returnList.append(ScreenItem(lineText, lines[key]["x"], lines[key]["y"]))
 
     return returnList
+
+def awaitText(box: list[list[int, int], list[int, int]], text: str, timeout: int, lineParser = None, phraseParser = None) -> ScreenItem:
+    timeoutTime = time.time() + timeout
+    while time.time() < timeoutTime:
+        items = getRegion(box, lineParser, phraseParser)
+        for item in items:
+            if item.text == text:
+                return
+            
+    raise RuntimeError(f"Timed out waiting for {text}")
+
+def awaitTextGone(box: list[list[int, int], list[int, int]], text: str, lineParser = None, phraseParser = None) -> ScreenItem:
+    isGone = False
+    while not isGone:
+        items = getRegion(box, lineParser, phraseParser)
+        isGone = True
+        for item in items:
+            if text in item.text:
+                isGone = False
