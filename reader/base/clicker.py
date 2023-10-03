@@ -10,6 +10,12 @@ def hitSpace():
 def hitEnter():
     pyautogui.press('enter')
 
+def hitDown():
+    pyautogui.press('down')
+
+def hitRight():
+    pyautogui.press('right')
+
 def enterText(text: str):
     pyautogui.write(text)
 
