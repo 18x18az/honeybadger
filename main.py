@@ -1,4 +1,5 @@
+from connection.connect import get_server
 from reader.matches.getMatches import getMatches
 
 
-getMatches()
+get_server()

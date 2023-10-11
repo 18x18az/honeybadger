@@ -1,0 +1,1 @@
+sudo firewall-cmd --add-port=1819/udp
