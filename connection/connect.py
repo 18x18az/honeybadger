@@ -20,11 +20,12 @@ def attempt_connection():
     respSock.settimeout(1)
 
     address = None
+    api_port = None
 
     try:
         # Receive the response
         data, addr = respSock.recvfrom(1024)
-        apiPort = data.decode('utf-8').split(',')
+        api_port = data.decode('utf-8').split(',')[0]
         address = addr[0]
     except socket.timeout:
         pass
@@ -32,17 +33,17 @@ def attempt_connection():
     # Close the socket
     respSock.close()
     
-    return address
+    return address, api_port
 
 
 def get_server():
     print('Attempting to find maestro')
     while True:
         try:
-            addr = attempt_connection()
+            addr, api_port = attempt_connection()
         except OSError:
             addr = None
             
         if addr:
             print('Maestro found at ' + addr)
-            return addr
+            return addr, api_port
