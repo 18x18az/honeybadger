@@ -3,8 +3,7 @@ from features.schedule import ScheduleHandler
 from features.teams import TeamsHandler
 from reader.teams.getTeams import getTeams
 
-#addr, api_port = get_server()
+addr, api_port = get_server()
 
-# ScheduleHandler(addr)
-# TeamsHandler(addr)
-getTeams()
+ScheduleHandler(addr, api_port)
+TeamsHandler(addr, api_port)

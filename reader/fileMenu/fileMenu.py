@@ -10,7 +10,6 @@ def openFileMenu():
 
 def export(index):
     openFileMenu()
-    return
     hitDown()
     hitDown()
     hitRight()

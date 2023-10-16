@@ -12,9 +12,9 @@ def getTeams():
             "city": rawTeam[2],
             "state": rawTeam[3],
             "country": rawTeam[4],
-            "school": rawTeam[6],
-            "grade": rawTeam[8],
+            "ageGroup": rawTeam[8],
         }
+        print(team)
         teams.append(team)
 
     return teams

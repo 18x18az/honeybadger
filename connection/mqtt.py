@@ -12,6 +12,8 @@ class MqttClient:
         self.thread = threading.Thread(target=self._run)
         self.thread.start()
 
+        self.server = server
+
     def _onConnect(self, client, userdata, flags, rc):
         for topic in self.topics:
             self.client.subscribe(topic)
